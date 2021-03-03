@@ -15,6 +15,8 @@ int main(int argc, char** argv)
     ll->addEnd(2);
     ll->addFront(3);
     ll->removeFront();
+    ll->removeAtIndex(2);
+    ll->addAtIndex(1,7);
     ll->display();
 
     return 0;

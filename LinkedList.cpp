@@ -121,3 +121,92 @@ int LinkedList::removeFront()
         return value;
     }
 }
+
+int LinkedList::removeAtIndex(int index)
+    {
+        if(this->head)
+        {
+            if(index < 0 || index >= this-> count)
+            {
+                cout << "ArrayIndexOutofBoundException" << endl;
+            }
+            else
+            {
+                if(index == 0)
+                {
+                    return this->removeFront();
+                }
+                else if(index == this->count - 1)
+                {
+                    return this->removeEnd();
+                }
+                else
+                {
+                    //we are removing from somewhere in the middle
+                    Node* prevDude = this->head;
+                    Node* dudeToRemove = this->head;
+
+                    //run dudeToRemove to the correct index
+                    for(int i = 0; i  < index; i++)
+                    {
+                        dudeToRemove = dudeToRemove->getNextNode();
+
+                    }
+
+                    //make prevDude point at the place right before dudeToRemove
+                    while(prevDude->getNextNode() != dudeToRemove)
+                    {
+                        prevDude = prevDude->getNextNode();
+                    }
+
+                    prevDude->setNextNode(dudeToRemove->getNextNode());
+                    dudeToRemove->setNextNode(NULL);
+                    int valueToReturn = dudeToRemove->getPayload();
+                    delete(dudeToRemove);
+                    this->count--;
+                    return valueToReturn;
+                    
+                }
+            }
+        }
+        else
+        {
+            cout << "Nothing to remove from the empty list" << endl;
+        }
+    }
+void LinkedList::addAtIndex(int index, int value)
+{
+    if(index < 0 || index >= this-> count)
+    {
+        cout << "ArrayIndexOutofBoundException" << endl;
+    }
+    else
+    {
+        if(index == 0)
+        {
+            this->addFront(value);
+        }
+        else if(index == this->count - 1)
+        {
+            this->addEnd(value);
+        }
+        else
+        {
+            //we are removing from somewhere in the middle
+            Node* prevDude = this->head;
+            Node* dudeToAdd = new Node(value);
+
+            //run dudeToRemove to the correct index
+            for(int i = 0; i  < index-1; i++)
+            {
+                prevDude = prevDude->getNextNode();
+
+            }
+            dudeToAdd->setNextNode(prevDude->getNextNode());
+            prevDude->setNextNode(dudeToAdd);
+            this->count++;
+            
+        }
+    }
+}
+
